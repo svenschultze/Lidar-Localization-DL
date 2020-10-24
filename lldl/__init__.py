@@ -1,1 +1,1 @@
-import lldl.dataset
+from lldl import dataset, model

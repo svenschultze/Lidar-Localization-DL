@@ -23,7 +23,6 @@ setuptools.setup(
     zip_safe=False,
     install_requires=[
         'numpy',
-        'importlib',
-        'importlib-resources'
+        'tensorflow',
     ]
 )
