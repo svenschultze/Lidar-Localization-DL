@@ -2,6 +2,7 @@ import numpy as np
 import urllib.request
 import io
 from tqdm import trange
+import time
 
 def download(url):
     with urllib.request.urlopen(url) as r:
@@ -20,12 +21,14 @@ def load(name):
         raise Exception(f"Dataset name must be one of {datasets}")
 
     print("Loading LiDAR data...")
-    with download(f'http://dev.sschultze.de:9999/{name}_x.npy') as buf:
-        x = np.load(buf)
+    time.sleep(10)
+    with download(f'http://dev.sschultze.de:9999/{name}_x.npy') as data:
+        x = np.load(data)
     
     print("Loading coordinate data...")
-    with download(f'http://dev.sschultze.de:9999/{name}_y.npy') as buf:
-        y = np.load(buf)
+    time.sleep(10)
+    with download(f'http://dev.sschultze.de:9999/{name}_y.npy') as data:
+        y = np.load(data)
 
     return x, y
 
