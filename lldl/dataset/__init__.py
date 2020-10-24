@@ -14,19 +14,17 @@ def download(url):
 
         return io.BytesIO(data)
 
-
-
 datasets = ["gazebo", "gmapping"]
 def load(name):
     if name not in datasets:
         raise Exception(f"Dataset name must be one of {datasets}")
 
     print("Loading LiDAR data...")
-    with download(f'https://github.com/svenschultze/Lidar-Localization-DL/blob/main/lldl/dataset/data/{name}_x.npy?raw=true') as buf:
+    with download(f'http://dev.sschultze.de:9999/{name}_x.npy') as buf:
         x = np.load(buf)
     
     print("Loading coordinate data...")
-    with download(f'https://github.com/svenschultze/Lidar-Localization-DL/blob/main/lldl/dataset/data/{name}_y.npy?raw=true') as buf:
+    with download(f'http://dev.sschultze.de:9999/{name}_y.npy') as buf:
         y = np.load(buf)
 
     return x, y
