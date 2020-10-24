@@ -1,17 +1,33 @@
 import numpy as np
 import urllib.request
 import io
+from tqdm import trange
+
+def download(url):
+    with urllib.request.urlopen(url) as r:
+        length = int(r.getheader('content-length'))
+        blocksize = length//10
+
+        data = b''
+        for x in trange(0, length + blocksize, blocksize):
+            data += r.read(blocksize)
+
+        return io.BytesIO(data)
+
+
 
 datasets = ["gazebo", "gmapping"]
 def load(name):
     if name not in datasets:
         raise Exception(f"Dataset name must be one of {datasets}")
 
-    with urllib.request.urlopen(f'https://github.com/svenschultze/Lidar-Localization-DL/blob/main/lldl/dataset/data/{name}_x.npy?raw=true') as f:
-        x = np.load(io.BytesIO(f.read()))
+    print("Loading LiDAR data...")
+    with download(f'https://github.com/svenschultze/Lidar-Localization-DL/blob/main/lldl/dataset/data/{name}_x.npy?raw=true') as buf:
+        x = np.load(buf)
     
-    with urllib.request.urlopen(f'https://github.com/svenschultze/Lidar-Localization-DL/blob/main/lldl/dataset/data/{name}_y.npy?raw=true') as f:
-        y = np.load(io.BytesIO(f.read()))
+    print("Loading coordinate data...")
+    with download(f'https://github.com/svenschultze/Lidar-Localization-DL/blob/main/lldl/dataset/data/{name}_y.npy?raw=true') as buf:
+        y = np.load(buf)
 
     return x, y
 
