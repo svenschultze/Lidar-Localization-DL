@@ -21,12 +21,12 @@ def load(name):
         raise Exception(f"Dataset name must be one of {datasets}")
 
     print("Loading LiDAR data...")
-    time.sleep(10)
+    time.sleep(0.1)
     with download(f'http://dev.sschultze.de:9999/{name}_x.npy') as data:
         x = np.load(data)
     
     print("Loading coordinate data...")
-    time.sleep(10)
+    time.sleep(0.1)
     with download(f'http://dev.sschultze.de:9999/{name}_y.npy') as data:
         y = np.load(data)
 
