@@ -1,13 +1,17 @@
 import numpy as np
+import urllib.request
 import io
-import pkgutil
 
+datasets = ["gazebo", "gmapping"]
 def load(name):
-    x_file = pkgutil.get_data(__name__, f'data/{name}_x.npy')
-    x = np.load(io.BytesIO(x_file))
+    if name not in datasets:
+        raise Exception(f"Dataset name must be one of {datasets}")
 
-    y_file = pkgutil.get_data(__name__, f'data/{name}_y.npy')
-    y = np.load(io.BytesIO(y_file))
+    with urllib.request.urlopen(f'https://github.com/svenschultze/Lidar-Localization-DL/blob/main/lldl/dataset/data/{name}_x.npy?raw=true') as f:
+        x = np.load(io.BytesIO(f.read()))
+    
+    with urllib.request.urlopen(f'https://github.com/svenschultze/Lidar-Localization-DL/blob/main/lldl/dataset/data/{name}_y.npy?raw=true') as f:
+        y = np.load(io.BytesIO(f.read()))
 
     return x, y
 
