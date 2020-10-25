@@ -15,7 +15,7 @@ def download(url):
 
         return io.BytesIO(data)
 
-datasets = ["gazebo", "gmapping"]
+datasets = ["gazebo", "gmapping", "synthetic_small_appartment", "synthetic_big_appartment", "synthetic_big_appartment_objects"]
 def load(name):
     if name not in datasets:
         raise Exception(f"Dataset name must be one of {datasets}")
