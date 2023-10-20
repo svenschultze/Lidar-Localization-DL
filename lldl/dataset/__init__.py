@@ -22,12 +22,12 @@ def load(name):
 
     print("Loading LiDAR data...")
     time.sleep(0.1)
-    with download(f'http://dev.sschultze.de:9999/{name}_x.npy') as data:
+    with download(f'https://huggingface.co/datasets/svenschultze/lidar-localization/resolve/main/{name}_x.npy') as data:
         x = np.load(data)
     
     print("Loading coordinate data...")
     time.sleep(0.1)
-    with download(f'http://dev.sschultze.de:9999/{name}_y.npy') as data:
+    with download(f'https://huggingface.co/datasets/svenschultze/lidar-localization/resolve/main/{name}_y.npy') as data:
         y = np.load(data)
 
     return x, y
